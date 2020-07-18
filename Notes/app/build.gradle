@@ -1,0 +1,121 @@
+apply plugin: 'com.android.application'
+apply plugin: "de.mannodermaus.android-junit5"
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.0"
+
+    defaultConfig {
+        applicationId "kiz.learnwithvel.notes"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true"]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        androidTest.java.srcDirs += "src/test-common/java"
+        test.java.srcDirs += "src/test-common/java"
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+
+    // ########### START UNIT TESTING ########### //
+
+    //INSTRUMENTATION TEST WITH JUNIT 4
+    androidTestImplementation 'junit:junit:4.13'
+
+    //ANDROIDX TEST
+    def core_test_version = "1.2.0"
+    def arch_version = "2.1.0"
+    androidTestImplementation "androidx.test:core:$core_test_version"
+    androidTestImplementation "androidx.test:runner:$core_test_version"
+    androidTestImplementation "androidx.test:rules:$core_test_version"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation "androidx.arch.core:core-testing:$arch_version"
+
+    //UI AUTOMATOR
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+
+    //ESPRESSO
+    def espresso_version = "3.2.0"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-accessibility:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-web:$espresso_version"
+    androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:$espresso_version"
+
+    //LOCAL TEST WITH JUNIT 5
+    def jupiter_unit_5_version = "5.6.2"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$jupiter_unit_5_version"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$jupiter_unit_5_version"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$jupiter_unit_5_version"
+
+    //MOCKITO
+    testImplementation "org.mockito:mockito-core:3.4.0"
+
+    // ########### END UNIT TESTING ########### //
+
+    // ########### START DAGGER ########### //
+
+    def dagger_version = "2.28.1"
+    api "com.google.dagger:dagger:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+    api "com.google.dagger:dagger-android:$dagger_version"
+    api "com.google.dagger:dagger-android-support:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
+
+    // ########### END DAGGER ########### //
+
+
+    // ########### START ROOM ########### //
+
+    def room_version = "2.2.5"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
+
+    // ########### END ROOM ########### //
+
+
+    // ########### START VIEW MODEL ########### //
+
+    def lifecycle_version = "2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle_version"
+
+    // ########### END VIEW MODEL ########### //
+
+
+}
