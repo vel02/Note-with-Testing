@@ -1,13 +1,10 @@
-package kiz.learnwithvel.notes;
+package kiz.learnwithvel.notes.persistence;
 
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 
 import org.junit.After;
 import org.junit.Before;
-
-import kiz.learnwithvel.notes.persistence.NoteDao;
-import kiz.learnwithvel.notes.persistence.NoteDatabase;
 
 public abstract class NoteDatabaseTest {
 

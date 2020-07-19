@@ -3,6 +3,7 @@ package kiz.learnwithvel.notes.ui.note;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -36,6 +37,7 @@ import static org.mockito.Mockito.when;
 public class NoteViewModelTest {
 
     //system under test
+    @InjectMocks
     private NoteViewModel viewModel;
 
     @Mock
@@ -44,7 +46,6 @@ public class NoteViewModelTest {
     @BeforeEach
     public void initEach() {
         MockitoAnnotations.openMocks(this);
-        viewModel = new NoteViewModel(repository);
     }
 
 
@@ -80,6 +81,8 @@ public class NoteViewModelTest {
         final Resource<Integer> returnedValue = liveDataTestUtil.getValue(viewModel.saveNote());
 
         // Assert
+        verify(repository).insertNote(any(Note.class));
+        verifyNoMoreInteractions(repository);
         assertEquals(Resource.error(-1, INSERT_FAILURE), returnedValue);
     }
 

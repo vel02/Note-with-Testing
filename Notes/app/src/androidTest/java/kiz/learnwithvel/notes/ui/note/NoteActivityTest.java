@@ -21,6 +21,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 
 /**
  * source:
@@ -102,6 +103,16 @@ public class NoteActivityTest {
         onView(withId(R.id.note_edit_title)).check(matches(withText(returnedData.getTitle())));
         onView(withId(R.id.note_text_title)).check(matches(withText(returnedData.getTitle())));
         onView(withId(R.id.note_text)).check(matches(withText(returnedData.getContent())));
+    }
+
+
+    @Test
+    public void setNoteProperties_returnError() throws Exception {
+
+        Exception exception = assertThrows(Exception.class, () -> {
+            activityTestRule.getActivity().setNoteProperties(null);
+        });
+        assertEquals("Error displaying note properties", exception.getMessage());
     }
 
 }

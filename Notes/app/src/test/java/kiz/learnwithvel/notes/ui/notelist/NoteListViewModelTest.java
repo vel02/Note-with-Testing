@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -30,6 +31,7 @@ import static org.mockito.Mockito.when;
 public class NoteListViewModelTest {
 
     //system under test
+    @InjectMocks
     private NoteListViewModel viewModel;
 
     @Mock
@@ -38,7 +40,6 @@ public class NoteListViewModelTest {
     @BeforeEach
     public void initEach() {
         MockitoAnnotations.openMocks(this);
-        viewModel = new NoteListViewModel(repository);
     }
 
     @Test

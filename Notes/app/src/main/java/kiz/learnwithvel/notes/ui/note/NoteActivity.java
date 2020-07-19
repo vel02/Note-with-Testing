@@ -105,7 +105,11 @@ public class NoteActivity extends DaggerAppCompatActivity implements
     private void subscribeObservers() {
         viewModel.observeNote().observe(this, note -> {
             if (note != null) {
-                setNoteProperties(note);
+                try {
+                    setNoteProperties(note);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -195,15 +199,16 @@ public class NoteActivity extends DaggerAppCompatActivity implements
         saveNote();
     }
 
-    private void setNoteProperties(Note note) {
-        try {
-            viewTitle.setText(note.getTitle());
-            editTitle.setText(note.getTitle());
-            linedEditText.setText(note.getContent());
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void setNoteProperties(Note note) throws Exception {
+        if (note == null) {
             showSnackBar("Error displaying note properties");
+            throw new Exception("Error displaying note properties");
         }
+
+        viewTitle.setText(note.getTitle());
+        editTitle.setText(note.getTitle());
+        linedEditText.setText(note.getContent());
+
     }
 
     private void showSnackBar(String message) {

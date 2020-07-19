@@ -90,10 +90,6 @@ public class NoteListActivity extends DaggerAppCompatActivity implements NoteRec
 
     }
 
-    public NoteRecyclerAdapter getAdapter() {
-        return adapter;
-    }
-
     @Override
     protected void onResume() {
         super.onResume();

@@ -1,4 +1,4 @@
-package kiz.learnwithvel.notes;
+package kiz.learnwithvel.notes.persistence;
 
 import android.database.sqlite.SQLiteConstraintException;
 

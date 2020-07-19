@@ -40,6 +40,10 @@ android {
         test.java.srcDirs += "src/test-common/java"
     }
 
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
+
 }
 
 dependencies {
@@ -83,6 +87,9 @@ dependencies {
 
     //MOCKITO
     testImplementation "org.mockito:mockito-core:3.4.0"
+    // Optional -- Robolectric environment
+    testImplementation 'androidx.test:core:1.2.0'
+
 
     // ########### END UNIT TESTING ########### //
 
